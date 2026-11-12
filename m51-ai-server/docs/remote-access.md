@@ -1,5 +1,17 @@
 # Private API access from outside the LAN
 
+## Private chat UI
+
+The PC now runs a background Tailscale Serve TCP forwarder on port 8787 to its existing LAN chat listener. An authorized client signs into the same tailnet, enables Tailscale, and opens the PC's Tailscale IPv4 on HTTP port 8787. The operator's local access map contains the live URL. This does not enable public Funnel or Internet router forwarding.
+
+The PC, chat process, SSH API tunnel and M51 must stay online. The current UI is hosted by the PC; the model runs on M51. The remote browser receives no model API key. Traffic travels inside Tailscale's encrypted network.
+
+Run scripts/enable-remote-chat.ps1 on the PC to restore this mapping after a LAN address/configuration change. Disable this mapping only with tailscale serve --tcp=8787 off; do not reset unrelated mappings.
+
+An actual M51-to-PC tailnet probe fetched the page and model catalog, then streamed a Qwen3.5 answer successfully. Evidence: remote-chat-results.json. Both peers currently share a LAN; a real 4G/5G path remains SKIP.
+
+## Direct model API
+
 The local path has passed an actual Windows HTTP health request:
 Windows `127.0.0.1:18080` -> SSH `m51-ai` -> M51 `127.0.0.1:8080`.
 Direct connections to `<M51_LAN_IP>:8080` were refused. API calls without a Bearer

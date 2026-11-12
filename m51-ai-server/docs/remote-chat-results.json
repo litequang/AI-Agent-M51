@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "url": "http://<REDACTED_NETWORK_ADDRESS>:8787",
+  "actual_cellular_path": "SKIP: phone and PC currently share LAN",
+  "assets": true,
+  "catalog": true,
+  "streamed_chat": true,
+  "response": "Thành phố Thủ đô Việt Nam là Hà Nội.",
+  "reported_models": [
+    "qwen3.5-2b"
+  ],
+  "timestamp": "2026-11-12T21:25:44.669483+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}
