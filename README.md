@@ -17,3 +17,10 @@ This is a PUBLIC source repository. Live network addresses, device usernames, pr
 Copy `m51-ai-server/config/connection.example.json` to the ignored `connection.local.json` and fill the deployment values before using PC setup scripts. See `AGENTS.md` and `HANDOFF.md` for measured status, recovery and remaining work.
 
 No private SSH key, API credential, Tailscale state, raw runtime log, model binary or real Zalo data belongs here.
+
+## Roadmap: Multi-account Zalo Chat Gateway
+
+- [Product roadmap and phase gates](docs/ZALO_GATEWAY_ROADMAP_V1.md)
+- [Codex Phase 01 mock-first execution prompt](docs/CODEX_ZALO_GATEWAY_PHASE01.md)
+
+The personal-account protocol candidates are **unofficial**. No real-account pilot is approved by these documents. The existing phone-hosted M51 AI/chat runtime remains the active implementation.

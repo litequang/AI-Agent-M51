@@ -28,3 +28,6 @@ Read the measured JSON/Markdown reports in `m51-ai-server/docs/` before claiming
 - Fast/non-thinking mode produced wrong arithmetic and assignment extraction. Structured extraction passed with thinking enabled and a larger output budget; do not erase the failed experiments or imply general accuracy.
 - Never feed real Zalo messages into setup tests.
 - A 30-minute soak already passed. Repeat an appropriate soak after material runtime/resource changes; do not rerun long tests merely to restate a passed result.
+
+## Planned Zalo Gateway project (not yet deployed)
+Read docs/ZALO_GATEWAY_ROADMAP_V1.md and docs/CODEX_ZALO_GATEWAY_PHASE01.md for scope, sourcing, model-cost recommendations and mandatory gates. Phase 01 is **mock-first**; this instruction alone does not authorize logging into any real Zalo account, fetching history, sending real messages, changing AI runtime or exposing new ports.
