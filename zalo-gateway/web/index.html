@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang='en'>
+<head>
+ <meta charset='utf-8'>
+ <meta name='viewport' content='width=device-width, initial-scale=1, viewport-fit=cover'>
+ <meta name='theme-color' content='#101b27'>
+ <meta name='description' content='Local mock Zalo gateway operator console'>
+ <title>Mock Gateway Console</title>
+ <link rel='stylesheet' href='style.css'>
+ <script src='app.js' defer></script>
+</head>
+<body>
+ <div class='app-shell'>
+ <header class='topbar'>
+ <a class='brand' href='#top' aria-label='Mock Gateway Console home'>
+ <span class='brand-mark' aria-hidden='true'>M</span>
+ <span class='brand-copy'>
+ <strong>Gateway Console</strong>
+ <span>Local operator workspace</span>
+ </span>
+ </a>
+ <div class='topbar-right'>
+ <span class='environment-badge'><span class='status-dot'></span> MOCK ENVIRONMENT</span>
+ <button id='logoutButton' class='button button-quiet hidden' type='button'>Clear token</button>
+ </div>
+ </header>
+
+ <main id='top' class='main-content'>
+ <section class='mock-banner' aria-label='Mock environment notice'>
+ <div class='banner-icon' aria-hidden='true'>!</div>
+ <div>
+ <strong>SIMULATION ONLY</strong>
+ <p>This console uses mock accounts and synthetic events. Real login and real message sending are disabled.</p>
+ </div>
+ <span class='banner-tag'>NO LIVE CONNECTORS</span>
+ </section>
+
+ <section id='authPanel' class='auth-panel panel'>
+ <div class='section-heading'>
+ <div>
+ <span class='eyebrow'>OPERATOR ACCESS</span>
+ <h1>Connect to the mock gateway</h1>
+ <p>Enter the operator Bearer token supplied by your local gateway.</p>
+ </div>
+ <span class='lock-icon' aria-hidden='true'>●</span>
+ </div>
+ <form id='authForm' class='auth-form'>
+ <label for='tokenInput'>Operator token</label>
+ <div class='input-with-button'>
+ <input id='tokenInput' name='token' type='password' autocomplete='off' spellcheck='false' placeholder='Paste operator token' required>
+ <button class='button button-primary' type='submit'>Connect</button>
+ </div>
+ <p class='field-hint'>The token stays in memory for this page session only. It is not saved to browser storage.</p>
+ </form>
+ <p id='authError' class='form-error' role='alert' aria-live='polite'></p>
+ </section>
+
+ <section id='workspace' class='workspace hidden' aria-label='Gateway workspace'>
+ <div class='workspace-heading'>
+ <div>
+ <span class='eyebrow'>OPERATOR OVERVIEW</span>
+ <h1>Mock gateway</h1>
+ <p>Manage simulated sessions, inspect collected events, and prepare explicitly confirmed mock outbox items.</p>
+ </div>
+ <div class='heading-actions'>
+ <span id='syncStatus' class='sync-status' role='status'>Waiting for data</span>
+ <button id='refreshButton' class='button button-secondary' type='button'>Refresh</button>
+ </div>
+ </div>
+
+ <div id='notice' class='notice hidden' role='status' aria-live='polite'></div>
+
+ <section class='panel health-panel' aria-labelledby='healthTitle'>
+ <div class='panel-heading'>
+ <div>
+ <span class='eyebrow'>SYSTEM STATUS</span>
+ <h2 id='healthTitle'>Gateway health</h2>
+ </div>
+ <span class='mock-pill'>MOCK = TRUE</span>
+ </div>
+ <div id='healthContent' class='health-grid'>
+ <div class='skeleton-line'></div>
+ <div class='skeleton-line'></div>
+ <div class='skeleton-line'></div>
+ <div class='skeleton-line'></div>
+ </div>
+ </section>
+
+ <section class='panel accounts-panel' aria-labelledby='accountsTitle'>
+ <div class='panel-heading'>
+ <div>
+ <span class='eyebrow'>SESSION MANAGEMENT</span>
+ <h2 id='accountsTitle'>Accounts</h2>
+ <p class='panel-subtitle'>All accounts shown here are synthetic mock accounts.</p>
+ </div>
+ <span id='accountCount' class='count-badge'>0 / 3</span>
+ </div>
+
+ <form id='accountForm' class='account-form'>
+ <div class='field-group'>
+ <label for='newAccountId'>Mock account ID</label>
+ <input id='newAccountId' name='id' type='text' placeholder='mock-a' pattern='mock-[a-z0-9-]{1,32}' maxlength='37' required>
+ </div>
+ <div class='field-group field-grow'>
+ <label for='newAccountLabel'>Display label</label>
+ <input id='newAccountLabel' name='label' type='text' placeholder='Support account' maxlength='80' required>
+ </div>
+ <button id='addAccountButton' class='button button-primary' type='submit'>Add account</button>
+ </form>
+ <p class='field-hint'>Account IDs must start with <code>mock-</code>. The gateway enforces the three-account limit.</p>
+ <div id='accountsGrid' class='accounts-grid' aria-live='polite'></div>
+ </section>
+
+ <section class='panel inbox-panel' aria-labelledby='inboxTitle'>
+ <div class='panel-heading inbox-heading'>
+ <div>
+ <span class='eyebrow'>COLLECTED EVENTS</span>
+ <h2 id='inboxTitle'>Inbox</h2>
+ <p class='panel-subtitle'>Threads and messages are read from the operator-authorized mock accounts.</p>
+ </div>
+ <div class='filter-control'>
+ <label for='inboxAccountFilter'>Account filter</label>
+ <select id='inboxAccountFilter'>
+ <option value='all'>All authorized accounts</option>
+ </select>
+ </div>
+ </div>
+
+ <div class='inbox-layout'>
+ <aside class='thread-column' aria-label='Conversation threads'>
+ <div class='column-label'>THREADS <span id='threadCount'>0</span></div>
+ <div id='threadList' class='thread-list'>
+ <div class='empty-state'>Connect an account to view its threads.</div>
+ </div>
+ </aside>
+
+ <section class='conversation-column' aria-label='Selected conversation'>
+ <div id='conversationHeader' class='conversation-header'>
+ <div>
+ <span class='eyebrow'>CONVERSATION</span>
+ <h3>Select a thread</h3>
+ <p>Choose a thread to inspect its collected messages.</p>
+ </div>
+ </div>
+ <div id='messageList' class='message-list' aria-live='polite'>
+ <div class='empty-state'>No conversation selected.</div>
+ </div>
+ <form id='composerForm' class='composer'>
+ <div class='composer-title'>
+ <strong>Mock message composer</strong>
+ <span class='mock-pill'>DRAFT FIRST</span>
+ </div>
+ <p id='composerContext' class='field-hint'>Select a thread before creating a draft.</p>
+ <label class='visually-hidden' for='messageText'>Message text</label>
+ <textarea id='messageText' name='text' rows='3' maxlength='2000' placeholder='Write a mock message...' disabled required></textarea>
+ <div class='composer-bottom'>
+ <div class='field-group quote-field'>
+ <label for='quoteSourceMessageId'>Optional quoted message ID</label>
+ <input id='quoteSourceMessageId' name='quoteSourceMessageId' type='text' maxlength='100' placeholder='Source message ID' disabled>
+ </div>
+ <button id='createDraftButton' class='button button-primary' type='submit' disabled>Create draft</button>
+ </div>
+ <p class='field-hint'>Creating a draft does not send it. A separate operator confirmation is required for each mock delivery.</p>
+ </form>
+ </section>
+ </div>
+ </section>
+
+ <div class='lower-grid'>
+ <section class='panel' aria-labelledby='gapsTitle'>
+ <div class='panel-heading'>
+ <div>
+ <span class='eyebrow'>COLLECTION CONTINUITY</span>
+ <h2 id='gapsTitle'>Collection gaps</h2>
+ </div>
+ <span class='unknown-pill'>COVERAGE UNKNOWN</span>
+ </div>
+ <p class='panel-subtitle'>Disconnect gaps are recorded for visibility. They do not establish whether messages were missed.</p>
+ <div id='gapsList' class='compact-list'>
+ <div class='empty-state'>No gap records loaded.</div>
+ </div>
+ </section>
+
+ <section class='panel' aria-labelledby='outboxTitle'>
+ <div class='panel-heading'>
+ <div>
+ <span class='eyebrow'>OPERATOR-CONTROLLED DELIVERY</span>
+ <h2 id='outboxTitle'>Outbox</h2>
+ </div>
+ <span class='mock-pill'>MOCK ONLY</span>
+ </div>
+ <p class='panel-subtitle'>Drafts require an explicit confirmation action. Uncertain items are never automatically resent.</p>
+ <div id='outboxList' class='compact-list'>
+ <div class='empty-state'>No outbox items loaded.</div>
+ </div>
+ </section>
+ </div>
+
+ <footer class='workspace-footer'>
+ <span>Mock Gateway Console</span>
+ <span>Real login: disabled · Real send: disabled · History backfill: disabled</span>
+ </footer>
+ </section>
+ </main>
+ </div>
+</body>
+</html>

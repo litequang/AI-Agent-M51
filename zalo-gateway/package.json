@@ -1,0 +1,21 @@
+{
+  "name": "@m51/zalo-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Mock-first multi-account gateway; no real Zalo login or send",
+  "engines": {
+    "node": ">=24.13.0 <25"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "npm run build && node --test --test-concurrency=1 dist/tests/*.test.js",
+    "start": "node dist/src/main.js",
+    "resource-check": "node dist/scripts/resource-check.js"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "typescript": "6.0.3"
+  }
+}

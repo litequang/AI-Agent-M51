@@ -20,6 +20,11 @@ No private SSH key, API credential, Tailscale state, raw runtime log, model bina
 
 ## Roadmap: Multi-account Zalo Chat Gateway
 
+**Phase01 mock implementation:** [gateway](zalo-gateway/) and
+[handoff + measured tests](docs/zalo-gateway/implementation-handoff.md), on
+`feature/zalo-gateway-p1-mock-20261112`. PC/M51 synthetic tests pass; real Zalo
+login/send and persistent service activation remain gated.
+
 - [Product roadmap and phase gates](docs/ZALO_GATEWAY_ROADMAP_V1.md)
 - [Codex Phase 01 mock-first execution prompt](docs/CODEX_ZALO_GATEWAY_PHASE01.md)
 

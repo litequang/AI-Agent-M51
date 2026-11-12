@@ -1,0 +1,86 @@
+{
+  "date": "2026-11-12",
+  "mode": "mock",
+  "realLogin": false,
+  "realSend": false,
+  "persistentServiceEnabled": false,
+  "tests": {
+    "windows": {
+      "pass": 20,
+      "fail": 0,
+      "durationMs": 46966.9711
+    },
+    "m51": {
+      "pass": 20,
+      "fail": 0,
+      "durationMs": 11291.59234
+    }
+  },
+  "resources": {
+    "windows": {
+      "status": "PASS",
+      "node": "v24.19.0",
+      "arch": "x64",
+      "events": 600,
+      "messages": 600,
+      "durationMs": 37873.3189,
+      "ingestP95Ms": 148.8138,
+      "eventLoopP99Ms": 21.774335,
+      "rssMiB": 67.06640625,
+      "cpuMilliseconds": 5281,
+      "idleCpuPercentOneCore": 0,
+      "databaseAndWalBytes": 1510635
+    },
+    "m51": {
+      "status": "PASS",
+      "node": "v24.22.2",
+      "platform": "android",
+      "arch": "arm64",
+      "events": 600,
+      "messages": 600,
+      "durationMs": 1959.261822,
+      "eventsPerSecond": 306.23778469154496,
+      "ingestP95Ms": 5.113385999999991,
+      "eventLoopP99Ms": 12.959743,
+      "rssMiB": 74.3359375,
+      "cpuMilliseconds": 1840.991,
+      "idleCpuPercentOneCore": 1.9399009823210196,
+      "databaseAndWalBytes": 1506564
+    }
+  },
+  "budgets": {
+    "rssMiB": 192,
+    "eventLoopP99Ms": 250,
+    "ingestP95Ms": 500
+  },
+  "cli": {
+    "windows": "PASS",
+    "m51": "PASS",
+    "tokenInitIdempotent": true,
+    "authenticatedHealth": true,
+    "tokenNotPrinted": true,
+    "m51VerifiedOwnerStop": true
+  },
+  "preservation": {
+    "status": "PASS",
+    "fourServicesUp": true,
+    "existingServicePidsUnchanged": true,
+    "tailscaleServeConfigurationUnchanged": true,
+    "aiHealthOk": true,
+    "bothModelsInAiAndChatCatalog": true,
+    "inferenceInvoked": false
+  },
+  "dependencyAudit": {
+    "status": "PASS",
+    "ownDevLockFindings": 0,
+    "runtimeNpmDependencies": 0,
+    "devEntries": 3
+  },
+  "limitations": [
+    "600 sequential synthetic events plus one-second idle; not endurance",
+    "Browser visual QA SKIP: native pipe unavailable Windows error2",
+    "Real login/send/coverage SKIP: permission NO-GO",
+    "Cellular/reboot/screen-off/thermal/endurance SKIP",
+    "Disk-full and physical power loss SKIP"
+  ]
+}

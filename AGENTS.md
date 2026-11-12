@@ -1,5 +1,10 @@
 # AI Agent M51 — instructions for the next agent
 
+Phase01 mock gateway is implemented separately in `zalo-gateway/`. Start with
+`docs/zalo-gateway/implementation-handoff.md` and its measured test matrix.
+It does not replace `m51-ai-server/`; no new persistent gateway/Serve service or
+real Zalo connector is enabled. Keep real pilot and send approval gates closed.
+
 Read `HANDOFF.md` first. The actual implementation is in `m51-ai-server/`.
 Read the measured JSON/Markdown reports in `m51-ai-server/docs/` before claiming a capability works.
 

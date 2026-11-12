@@ -1,5 +1,12 @@
 PUBLIC COPY: live addresses/usernames have been replaced with placeholders. Refer to the operator's private LOCAL_ACCESS.md and connection.local.json for authorized access.
 
+PHASE01 GATEWAY UPDATE: Branch feature/zalo-gateway-p1-mock-20261112 implements
+an isolated mock gateway in zalo-gateway/. Read
+[the implementation handoff](docs/zalo-gateway/implementation-handoff.md) for source
+map, reuse audit, PC/M51 tests, resource sample and next approval gates. Existing
+AI/chat/Tailscale services are preserved. No persistent gateway, real Zalo login/send,
+main merge or production release was enabled.
+
 CURRENT ARCHITECTURE UPDATE (supersedes PC-hosted chat instructions below): Chat is now hosted entirely on M51 as runit service m51-chat, loopback 8787 -> phone AI loopback 8080. Phone Tailscale Serve8787 provides http://<REDACTED_NETWORK_ADDRESS>:8787; SSH8022 remains. PC chat, API tunnels18080/18081 and PC Serve8787 were stopped. Actual direct phone chat/model switching/security and PC listener-zero checks passed. Chat crash recovery1.11s and60s observation passed. Physical PC power-off, actual4G, reboot and endurance are still untested. See docs/phone-chat.md and phone-*.json. Cloudflare DNS ownership confirmed by user; custom domain/Tunnel/Access only discussed, not configured.
 
 # Bàn giao AI Agent M51
