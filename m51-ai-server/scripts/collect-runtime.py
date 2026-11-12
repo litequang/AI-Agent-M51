@@ -22,6 +22,8 @@ result["uname"] = run(["uname", "-a"])
 result["whoami"] = run(["whoami"])
 result["version"] = run([str(ROOT / "llama.cpp/build/bin/llama-server"), "--version"])
 result["source_commit"] = run(["git", "-C", str(ROOT / "llama.cpp"), "rev-parse", "HEAD"])
+result["source_changes"] = run(["git", "-C", str(ROOT / "llama.cpp"), "diff", "--stat"])
+result["android_patch"] = "docs/android-subprocess.patch; SUBPROCESS_HAVE_CWD=0 in common/subproc.h on Android only"
 result["services"] = run(["sv", "status", os.environ["PREFIX"] + "/var/service/m51-ai", os.environ["PREFIX"] + "/var/service/m51-ai-watch", os.environ["PREFIX"] + "/var/service/m51-tailscale"])
 match = re.search(r"\(pid (\d+)\)", result["services"]["stdout"])
 if match:
@@ -32,7 +34,7 @@ if match:
     result["loopback_configured"] = args[args.index("--host") + 1] == "127.0.0.1"
     result["api_key_file_configured"] = "--api-key-file" in args
 cache = ROOT / "llama.cpp/build/CMakeCache.txt"
-result["build_settings"] = [line for line in cache.read_text().splitlines() if line.startswith(("GGML_NATIVE:", "GGML_CPU_ARM_ARCH:", "GGML_OPENMP:", "GGML_VULKAN:", "GGML_CUDA:", "CMAKE_BUILD_TYPE:"))]
+result["build_settings"] = [line for line in cache.read_text().splitlines() if line.startswith(("GGML_NATIVE:", "GGML_CPU_ARM_ARCH:", "GGML_OPENMP:", "GGML_VULKAN:", "GGML_CUDA:", "CMAKE_BUILD_TYPE:", "LLAMA_SUBPROCESS:"))]
 monitor = ROOT / "run/monitor.json"
 if monitor.exists():
     result["monitor"] = json.loads(monitor.read_text())

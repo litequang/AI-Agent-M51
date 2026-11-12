@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "upstream_commit": "827466b9efa0574806bad7732bcd78bfb6d9311d",
+  "required_cmake_option": "LLAMA_SUBPROCESS=ON",
+  "initial_runtime_error": "subprocess is not enabled on this build",
+  "initial_build_error": "posix_spawn_file_actions_addchdir_np not declared by Android SDK",
+  "compatibility_override": "SUBPROCESS_HAVE_CWD=0 under __ANDROID__ in common/subproc.h",
+  "scope": "Router inherits CWD; requests with process_cwd return ENOSYS. No Android seccomp/thermal protection changed.",
+  "evidence": [
+    "build-runtime.json",
+    "router-runtime.json",
+    "model-selection-results.json",
+    "router-recovery-results.json"
+  ]
+}

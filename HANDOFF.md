@@ -109,3 +109,22 @@ Không bỏ workaround này nếu chưa thay bằng build Android native đã ki
 6. Chỉ sau khi hạ tầng và độ chính xác đủ tốt mới thiết kế phần tích hợp Zalo; hiện chưa truy cập dữ liệu Zalo thật.
 
 Chưa có PR merge hoặc release. Không ghi PASS cho hạng mục chưa được kiểm chứng.
+
+
+## Model selection update and public source mapping
+
+The user authorized Qwen3.5-2B Q4_K_M alongside Qwen3-1.7B. The chat header selects the model for the next message while retaining the conversation. Default: `qwen3.5-2b`; alternative: `qwen3-1.7b`. Each reply displays its model label. The proxy passes the selected model through template, tokenize and completion calls, and accepts one concurrent chat request (others receive 429).
+
+Runtime uses the native llama.cpp router with `--models-max 1`, generated `config/models.ini`, and Qwen3.5 loaded on startup. The build needs `-DLLAMA_SUBPROCESS=ON`. The earlier build lacked it; initial failure evidence remains in model-selection-initial-results.json. CPU/context/key-file constraints are unchanged. Thinking is controlled by chat_template_kwargs.enable_thinking without prompt suffixes.
+
+Qwen3.5 source: unsloth/Qwen3.5-2B-GGUF, revision f6d5376be1edb4d416d56da11e5397a961aca8ae, file Qwen3.5-2B-Q4_K_M.gguf, 1,280,835,840 bytes, SHA256 aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223. No vision projector is installed; the current scope is text chat.
+
+The original benchmarks and 30-minute soak describe Qwen3-1.7B before router mode. New evidence: model-selection-results.json, router-stability-results.json, router-runtime.json, qwen35-summary-results.json, and model-selection.md. Do not attribute the old model's speed/accuracy to the new model.
+
+The Android SDK lacks posix_spawn_file_actions_addchdir_np. patch-android-subprocess.py sets the vendor-supported SUBPROCESS_HAVE_CWD=0 in common/subproc.h only under __ANDROID__. The router inherits its CWD; other callers asking to change it receive ENOSYS. The pinned upstream commit plus docs/android-subprocess.patch is the actual source state, not an unmodified upstream build.
+
+Public GitHub branch: codex/m51-ai-server-20261112. No merge/release. The sanitized source checkout is the AI-Agent-M51 subdirectory; the original workspace remains the live operator deployment with private connection.local.json, LOCAL_ACCESS.md, credentials and logs. A public clone does not grant phone access. Use authorized M51_CONNECTION_CONFIG or a private connection.local.json for that checkout. Synchronize changes into the live deployment before restart, retain measured reports, and export a sanitized source copy before pushing.
+
+The UI streaming parser was corrected to split actual newline-delimited SSE rather than literal backslash-n. Browser visual QA is still SKIP; HTTP tests exercise the real backend and streams.
+
+Post-change checks: two actual model switches PASS; both listeners use loopback and parent rejects unauthenticated requests; router plus one model total RSS 1406.7-1543.6 MiB over 300.0 seconds, three successful requests, zero soak failures. Router SIGKILL recovery including generation PASS in 5.53 seconds, both old PIDs gone. A simultaneous UI greeting timed out while the direct API ran long thinking; chat-ui-concurrent-load-results.json retains this FAIL, while the sequential UI retest passed. Direct API clients can queue work outside the PC UI semaphore. Qwen3.5 unbounded thinking exhausted 768 tokens without a final answer in 196.39 seconds. UI/client/tests now cap reasoning_budget_tokens at 256 (total 768) when thinking is selected. Consult qwen35-summary-results.json for the bounded retest; never infer semantic PASS from a successful HTTP request.

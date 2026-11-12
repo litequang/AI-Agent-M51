@@ -1,8 +1,10 @@
 # Benchmark report
 
-Generated: 2026-11-12T20:45:03.629040+07:00
+Generated: 2026-11-12T21:16:50.862662+07:00
 
 CPU only, context 2048, threads 4, batch/ubatch 128, one slot, idle polling disabled. Chat defaults to non-thinking; the structured extraction retest can override thinking per request, as recorded in summary-results.json.
+
+The rates below are the original Qwen3-1.7B baseline. Qwen3.5-2B timings are in model-selection-results.json, router-stability-results.json and qwen35-summary-results.json.
 
 - Measured generation tokens/s: 4.09 to 6.14, median 5.99.
 - Idle CPU: 0.0% of one core over 20.001597388996743 seconds.

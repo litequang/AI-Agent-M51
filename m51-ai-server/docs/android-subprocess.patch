@@ -1,0 +1,12 @@
+diff --git a/common/subproc.h b/common/subproc.h
+index 89b69ee..a8f0df4 100644
+--- a/common/subproc.h
++++ b/common/subproc.h
+@@ -1,3 +1,7 @@
++#if defined(__ANDROID__)
++#define SUBPROCESS_HAVE_CWD 0
++#endif
++
+ #pragma once
+ 
+ #include <atomic>

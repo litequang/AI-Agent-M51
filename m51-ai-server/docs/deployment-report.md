@@ -1,9 +1,15 @@
 # Deployment report
 
-Generated: 2026-11-12T20:45:03.629040+07:00
+Generated: 2026-11-12T21:16:50.862662+07:00
 
 | Item | Status | Evidence / limitation |
 |---|---|---|
+| Qwen3.5-2B checksum | PASS | model-qwen35-verification.json |
+| Chat model selector and actual switches | PASS | Both model IDs checked in streamed replies, invalid model blocked |
+| Router post-change five-minute soak | PASS | router-stability-results.json; distinct from original 30-minute soak |
+| Router crash recovery including generation | PASS | router-recovery-results.json; old model process also exited |
+| Router one-model and loopback limits | PASS | Router plus one child; both loopback, API key required by parent |
+| Qwen3.5 structured extraction sample | PASS | qwen35-summary-results.json; old semantic checks below belong to Qwen3-1.7B |
 | Termux curl/OpenSSL and package audit | PASS | See build-runtime.json and hardware report |
 | SSH Ed25519 key and m51-ai alias | PASS | Actual uname/whoami command over key login |
 | llama.cpp Android ARM64 build / model load | PASS | Actual binary version, args and running service |
@@ -28,6 +34,8 @@ Generated: 2026-11-12T20:45:03.629040+07:00
 | 24-72 hour endurance | SKIP | Follow-up plan in README; not represented as completed |
 
 Only synthetic conversations were used. No Zalo data or Magisk/root access was used. No router port forwarding or public API binding was configured.
+
+Qwen3.5-2B and Qwen3-1.7B are now available through the native model router, limited to one loaded model. The original API/summary/recovery/idle/30-minute measurements describe the earlier single-model Qwen3-1.7B deployment. Post-change selection, structured extraction and resource evidence are separately named above. Browser visual QA remains unverified.
 
 Local API: `http://127.0.0.1:18080` through the PC SSH tunnel. Credentials are stored in `secrets/ai-api.key` with restricted permissions and are excluded from source control.
 

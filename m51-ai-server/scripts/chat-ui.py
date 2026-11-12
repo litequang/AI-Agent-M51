@@ -21,8 +21,8 @@ if not ipaddress.ip_address(args.host).is_private or args.host == "0.0.0.0":
 KEY = (ROOT / "secrets/ai-api.key").read_text().strip()
 BASE = args.upstream.rstrip("/")
 NETWORK = ipaddress.ip_network(args.host + "/24", strict=False)
-SLOTS = threading.BoundedSemaphore(2)
-MODEL = None
+SLOTS = threading.BoundedSemaphore(1)
+CATALOG = {"qwen3.5-2b": "Qwen3.5 · 2B", "qwen3-1.7b": "Qwen3 · 1.7B"}
 
 
 def upstream(path, payload=None, timeout=20):
@@ -64,6 +64,14 @@ class Handler(BaseHTTPRequestHandler):
         if not self.allowed():
             return self.reply(403, {"error": "Chỉ dành cho mạng LAN."})
         route = urllib.parse.urlsplit(self.path).path
+        if route == "/api/models":
+            try:
+                items = upstream("/v1/models")["data"]
+                models = [{"id": item["id"], "name": CATALOG[item["id"]]} for item in items if item["id"] in CATALOG]
+                models.sort(key=lambda item: list(CATALOG).index(item["id"]))
+                return self.reply(200, {"models": models, "default": models[0]["id"] if models else None})
+            except Exception:
+                return self.reply(503, {"error": "Chưa lấy được danh sách model."})
         if route == "/api/status":
             try:
                 ready = upstream("/health", timeout=5).get("status") == "ok"
@@ -79,7 +87,6 @@ class Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_POST(self):
-        global MODEL
         if not self.allowed() or urllib.parse.urlsplit(self.path).path != "/api/chat":
             return self.reply(403, {"error": "Không được phép."})
         origin = self.headers.get("Origin")
@@ -91,6 +98,9 @@ class Handler(BaseHTTPRequestHandler):
             if not 0 < length <= 24000 or self.headers.get("Content-Type", "").split(";")[0] != "application/json":
                 return self.reply(400, {"error": "Yêu cầu không hợp lệ hoặc quá dài."})
             body = json.loads(self.rfile.read(length))
+            model = body.get("model", "qwen3.5-2b")
+            if model not in CATALOG:
+                raise ValueError("Model không hợp lệ.")
             thinking = body.get("thinking", False) is True
             history = body.get("messages", [])[-8:]
             if not history or history[-1].get("role") != "user":
@@ -104,19 +114,19 @@ class Handler(BaseHTTPRequestHandler):
             return self.reply(400, {"error": str(exc)})
         streaming = False
         try:
-            if MODEL is None:
-                MODEL = upstream("/v1/models")["data"][0]["id"]
             messages = [{"role": "system", "content": "Bạn là trợ lý tiếng Việt. Trả lời rõ ràng, chính xác. Không bịa thông tin. Khi trích xuất công việc, phân biệt người giao việc và người nhận việc."}] + history
             budget = 768 if thinking else 256
             while True:
-                rendered = upstream("/apply-template", {"messages": messages, "chat_template_kwargs": {"enable_thinking": thinking}})["prompt"]
-                tokens = upstream("/tokenize", {"content": rendered, "add_special": False})["tokens"]
+                rendered = upstream("/apply-template", {"model": model, "messages": messages, "chat_template_kwargs": {"enable_thinking": thinking}}, timeout=240)["prompt"]
+                tokens = upstream("/tokenize", {"model": model, "content": rendered, "add_special": False}, timeout=240)["tokens"]
                 if len(tokens) <= 2048 - budget - 32:
                     break
                 if len(messages) <= 2:
                     return self.reply(400, {"error": "Đoạn tin quá dài cho phiên này. Bạn chia nhỏ nội dung rồi thử lại nhé."})
                 del messages[1:min(3, len(messages) - 1)]
-            payload = {"model": MODEL, "messages": messages, "max_tokens": budget, "temperature": 0.2, "stream": True, "chat_template_kwargs": {"enable_thinking": thinking}}
+            payload = {"model": model, "messages": messages, "max_tokens": budget, "temperature": 0.2, "stream": True, "chat_template_kwargs": {"enable_thinking": thinking}}
+            if thinking:
+                payload["reasoning_budget_tokens"] = 256
             req = urllib.request.Request(BASE + "/v1/chat/completions", data=json.dumps(payload, ensure_ascii=False).encode(), headers={"Content-Type": "application/json", "Authorization": "Bearer " + KEY})
             with urllib.request.urlopen(req, timeout=240) as response:
                 self.send_headers(200, "text/event-stream; charset=utf-8")

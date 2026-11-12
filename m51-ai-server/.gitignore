@@ -9,3 +9,5 @@ config/server.env
 tailscale/
 secrets/
 config/connection.local.json
+
+config/models.ini

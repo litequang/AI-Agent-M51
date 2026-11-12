@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "url": "http://<PC_LAN_IP>:8787",
+  "browser_visual_qa": "SKIP: browser/native control host unavailable",
+  "error": "timed out",
+  "timestamp": "2026-11-12T21:10:11.310988+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

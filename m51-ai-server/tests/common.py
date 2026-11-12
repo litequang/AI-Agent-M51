@@ -29,10 +29,12 @@ def chat(prompt, schema=None, max_tokens=256, thinking=False):
     global MODEL
     if MODEL is None:
         models, _ = request("/v1/models")
-        MODEL = models["data"][0]["id"]
-    payload = {"model": MODEL, "messages": [{"role": "system", "content": "Bạn là trợ lý tiếng Việt. Chỉ dùng dữ liệu được cung cấp. Phân biệt người giao việc với người nhận việc. Trả lời chính xác, không suy diễn."}, {"role": "user", "content": prompt + (" /think" if thinking else " /no_think")}], "temperature": 0, "seed": 42, "max_tokens": max_tokens, "chat_template_kwargs": {"enable_thinking": thinking}}
+        MODEL = os.environ.get("M51_MODEL", models["data"][0]["id"])
+    payload = {"model": MODEL, "messages": [{"role": "system", "content": "Bạn là trợ lý tiếng Việt. Chỉ dùng dữ liệu được cung cấp. Phân biệt người giao việc với người nhận việc. Trả lời chính xác, không suy diễn."}, {"role": "user", "content": prompt}], "temperature": 0, "seed": 42, "max_tokens": max_tokens, "chat_template_kwargs": {"enable_thinking": thinking}}
     if schema:
         payload["response_format"] = {"type": "json_schema", "json_schema": {"name": "result", "strict": True, "schema": schema}}
+    if thinking:
+        payload["reasoning_budget_tokens"] = 256
     result, elapsed = request("/v1/chat/completions", payload)
     content = result["choices"][0]["message"]["content"]
     tokens = result.get("usage", {}).get("completion_tokens", 0)
@@ -46,7 +48,7 @@ def fold(text):
 def save(name, result):
     result["timestamp"] = datetime.datetime.now().astimezone().isoformat()
     result["base_url"] = BASE
-    dest = ROOT / "docs" / (name + ".json")
+    dest = ROOT / "docs" / (os.environ.get("M51_RESULT_PREFIX", "") + name + ".json")
     dest.parent.mkdir(exist_ok=True)
     dest.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2), flush=True)

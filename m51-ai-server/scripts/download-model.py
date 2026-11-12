@@ -6,11 +6,18 @@ from pathlib import Path
 import shutil
 import subprocess
 import urllib.request
+import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 REPO = "unsloth/Qwen3-1.7B-GGUF"
 NAME = "Qwen3-1.7B-Q4_K_M.gguf"
 EXPECTED_SHA = "b139949c5bd74937ad8ed8c8cf3d9ffb1e99c866c823204dc42c0d91fa181897"
+if len(sys.argv) > 1:
+    if sys.argv[1:] != ["qwen3.5-2b"]:
+        raise SystemExit("Expected optional argument qwen3.5-2b")
+    REPO = "unsloth/Qwen3.5-2B-GGUF"
+    NAME = "Qwen3.5-2B-Q4_K_M.gguf"
+    EXPECTED_SHA = "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223"
 
 
 def main():
@@ -45,7 +52,8 @@ def main():
     if candidate != dest:
         candidate.replace(dest)
     report = {"status": "PASS", "repository": REPO, "revision": revision, "file": NAME, "bytes": size, "sha256": sha}
-    (ROOT / "docs" / "model-verification.json").write_text(json.dumps(report, indent=2), encoding="utf-8")
+    report_name = "model-qwen35-verification.json" if "3.5" in NAME else "model-verification.json"
+    (ROOT / "docs" / report_name).write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps(report), flush=True)
 
 

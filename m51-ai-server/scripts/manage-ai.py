@@ -64,7 +64,11 @@ def setup():
     if not api_key.exists():
         api_key.write_text(secrets.token_urlsafe(32) + "\n")
     api_key.chmod(0o600)
-    args = [str(binary), "-m", str(model), "-c", c["CONTEXT"], "-t", c["THREADS"], "-ngl", "0", "--host", "127.0.0.1", "--port", c["PORT"], "-np", "1", "-b", c["BATCH"], "-ub", c["UBATCH"], "--poll", "0", "--poll-batch", "0", "--jinja", "--chat-template-kwargs", '{"enable_thinking":false}', "--no-webui", "--no-slots", "--api-key-file", str(api_key), "--log-verbosity", "2"]
+    models = [("qwen3.5-2b", "Qwen3.5-2B-Q4_K_M.gguf"), ("qwen3-1.7b", model.name)]
+    available = [(alias, ROOT / "models" / name) for alias, name in models if (ROOT / "models" / name).is_file()]
+    preset = ROOT / "config/models.ini"
+    preset.write_text("version = 1\n" + "".join(f"\n[{alias}]\nmodel = {path}\nload-on-startup = {'true' if index == 0 else 'false'}\n" for index, (alias, path) in enumerate(available)), encoding="utf-8")
+    args = [str(binary), "--models-preset", str(preset), "--models-max", "1", "-c", c["CONTEXT"], "-t", c["THREADS"], "-ngl", "0", "--host", "127.0.0.1", "--port", c["PORT"], "-np", "1", "-b", c["BATCH"], "-ub", c["UBATCH"], "--poll", "0", "--poll-batch", "0", "--jinja", "--chat-template-kwargs", '{"enable_thinking":false}', "--no-webui", "--no-slots", "--api-key-file", str(api_key), "--log-verbosity", "2"]
     for service in (SERVICE, WATCH):
         service.mkdir(parents=True, exist_ok=True)
         # Create services down; only explicit start enables them.

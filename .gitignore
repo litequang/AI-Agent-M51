@@ -18,3 +18,5 @@
 source-manifest.json
 **/config/connection.local.json
 LOCAL_ACCESS.md
+
+**/config/models.ini

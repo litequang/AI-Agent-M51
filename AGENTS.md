@@ -17,6 +17,7 @@ Read the measured JSON/Markdown reports in `m51-ai-server/docs/` before claiming
 - The LAN chat UI intentionally binds only to PC `<PC_LAN_IP>:8787`, with a Windows firewall rule restricted to `<LAN_SUBNET>`. Its backend keeps the model key out of browser code.
 - Do not use Magisk/root, reinstall Termux, delete phone data or weaken Android thermal/battery protection to solve routine setup issues.
 - Preserve the Tailscale daemon's restricted helper PATH and explicit state directory. Official Linux binaries otherwise hit Android's blocked `faccessat2` syscall after login.
+- Router mode uses `--models-max 1` and `LLAMA_SUBPROCESS=ON`. Keep the chosen model in every template, tokenize and chat request. The old 30-minute benchmark applies only to the original single-model deployment.
 - Keep model/source checksums and actual build commit evidence. Do not silently download alternative large models.
 
 ## Validation

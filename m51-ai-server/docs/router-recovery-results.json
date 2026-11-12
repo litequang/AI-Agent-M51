@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "previous_pids": [
+    14391,
+    14488
+  ],
+  "replacement_pids": [
+    14824,
+    14837
+  ],
+  "recovery_including_generation_seconds": 5.525515986955725,
+  "response_model": "qwen3.5-2b",
+  "response": "Hà Nội.",
+  "timestamp": "2026-11-12T21:12:11.298344+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

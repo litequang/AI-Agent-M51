@@ -1,0 +1,26 @@
+{
+  "status": "FAIL",
+  "checks": {},
+  "inference_mode": "thinking enabled per request for structured extraction; server default remains non-thinking",
+  "response": {
+    "content": "",
+    "seconds": 196.38956539297942,
+    "completion_tokens": 768,
+    "end_to_end_tokens_per_second": 3.9105947327864223,
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 308,
+      "prompt_ms": 30253.903,
+      "prompt_per_token_ms": 98.22695779220778,
+      "prompt_per_second": 10.18050464430986,
+      "predicted_n": 768,
+      "predicted_ms": 166075.583,
+      "predicted_per_token_ms": 216.52618383311605,
+      "predicted_per_second": 4.618379090681861
+    },
+    "finish_reason": "length"
+  },
+  "error": "Expecting value: line 1 column 1 (char 0)",
+  "timestamp": "2026-11-12T21:10:10.470103+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

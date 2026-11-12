@@ -28,6 +28,12 @@ idle = get("idle-results")
 recovery = get("recovery-results")
 now = datetime.datetime.now().astimezone().isoformat()
 rows = [
+    ("Qwen3.5-2B checksum", get("model-qwen35-verification").get("status", "SKIP"), "model-qwen35-verification.json"),
+    ("Chat model selector and actual switches", get("model-selection-results").get("status", "SKIP"), "Both model IDs checked in streamed replies, invalid model blocked"),
+    ("Router post-change five-minute soak", get("router-stability-results").get("status", "SKIP"), "router-stability-results.json; distinct from original 30-minute soak"),
+    ("Router crash recovery including generation", get("router-recovery-results").get("status", "SKIP"), "router-recovery-results.json; old model process also exited"),
+    ("Router one-model and loopback limits", get("router-runtime").get("status", "SKIP"), "Router plus one child; both loopback, API key required by parent"),
+    ("Qwen3.5 structured extraction sample", get("qwen35-summary-results").get("status", "SKIP"), "qwen35-summary-results.json; old semantic checks below belong to Qwen3-1.7B"),
     ("Termux curl/OpenSSL and package audit", runtime.get("status", "SKIP"), "See build-runtime.json and hardware report"),
     ("SSH Ed25519 key and m51-ai alias", get("connection-state").get("status") == "connected_key_verified" and "PASS" or "SKIP", "Actual uname/whoami command over key login"),
     ("llama.cpp Android ARM64 build / model load", runtime.get("status", "SKIP"), "Actual binary version, args and running service"),
@@ -54,6 +60,7 @@ rows = [
 deployment = f"# Deployment report\n\nGenerated: {now}\n\n| Item | Status | Evidence / limitation |\n|---|---|---|\n"
 deployment += "".join(f"| {name} | {status} | {detail} |\n" for name, status, detail in rows)
 deployment += "\nOnly synthetic conversations were used. No Zalo data or Magisk/root access was used. No router port forwarding or public API binding was configured.\n"
+deployment += "\nQwen3.5-2B and Qwen3-1.7B are now available through the native model router, limited to one loaded model. The original API/summary/recovery/idle/30-minute measurements describe the earlier single-model Qwen3-1.7B deployment. Post-change selection, structured extraction and resource evidence are separately named above. Browser visual QA remains unverified.\n"
 deployment += "\nLocal API: `http://127.0.0.1:18080` through the PC SSH tunnel. Credentials are stored in `secrets/ai-api.key` with restricted permissions and are excluded from source control.\n"
 deployment += "\nThe initial summary failed semantic checks (omitted hazard and invented a deadline). The revised prompt explicitly asks for both ordinary work and incidents, confirmed owners only, and full quoted evidence. Initial output remains in summary-initial-results.json. Passing these samples is not a general accuracy guarantee.\n"
 deployment += "\nFast-mode arithmetic also produced wrong answers/formatting; see api-initial-results.json. A 192-token thinking experiment did not finish its JSON answer. HTTP availability is tested separately with five nonempty completed greeting responses. Structured extraction passed using thinking with a larger token budget; it took about two minutes for the sample.\n"
@@ -66,6 +73,7 @@ rates = [r["timings"]["predicted_per_second"] for r in responses if r.get("timin
 memories = [s["monitor"]["server_rss_kb"] for s in soak.get("samples", []) if "server_rss_kb" in s.get("monitor", {})]
 batteries = [s["monitor"]["battery_c"] for s in soak.get("samples", []) if "battery_c" in s.get("monitor", {})]
 benchmark = f"# Benchmark report\n\nGenerated: {now}\n\nCPU only, context 2048, threads 4, batch/ubatch 128, one slot, idle polling disabled. Chat defaults to non-thinking; the structured extraction retest can override thinking per request, as recorded in summary-results.json.\n\n"
+benchmark += "The rates below are the original Qwen3-1.7B baseline. Qwen3.5-2B timings are in model-selection-results.json, router-stability-results.json and qwen35-summary-results.json.\n\n"
 benchmark += f"- Measured generation tokens/s: {min(rates):.2f} to {max(rates):.2f}, median {statistics.median(rates):.2f}.\n" if rates else "- Generation tokens/s: SKIP.\n"
 benchmark += f"- Idle CPU: {idle.get('idle_cpu_percent_one_core', 'SKIP')}% of one core over {idle.get('measured_seconds', 'SKIP')} seconds.\n"
 benchmark += f"- Idle RSS: {idle.get('VmRSS_kb', 'SKIP')} KiB.\n"

@@ -1,6 +1,6 @@
 # Samsung M51 local AI server
 
-Windows PC -> SSH tunnel -> Termux llama.cpp CPU -> Qwen3-1.7B Q4_K_M.
+Windows PC -> SSH tunnel -> Termux llama.cpp CPU router -> Qwen3.5-2B / Qwen3-1.7B Q4_K_M.
 
 M51: `<M51_LAN_IP>`, Termux user `<TERMUX_USER>`, SSH port `8022`.
 No root, Debian environment, paid AI API, Internet port forwarding or real Zalo data is used.
@@ -50,7 +50,7 @@ accepted as PASS. See `docs/remote-access.md`.
 Build source: https://github.com/ggml-org/llama.cpp (actual commit recorded in docs).
 Android build guidance: https://github.com/ggml-org/llama.cpp/blob/master/docs/android.md
 Model: https://huggingface.co/unsloth/Qwen3-1.7B-GGUF/blob/main/Qwen3-1.7B-Q4_K_M.gguf
-Exactly one model is downloaded, with fixed expected SHA256 and API-reported exact byte count.
+Two approved models are downloaded with fixed expected SHA256 and API-reported exact byte counts. Qwen3.5 source: https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/blob/main/Qwen3.5-2B-Q4_K_M.gguf
 
 Runit restarts the server after crashes. Its server/watchdog logs rotate at 2 MiB,
 retaining five rotated files per service in `logs/`. The watchdog checks every 30 seconds;
@@ -67,3 +67,19 @@ No unverified hardware or model capability is counted as PASS.
 If package recovery is needed later, the already-transferred bootstrap is a single
 command: `bash ~/m51-ai-server/bootstrap/bootstrap-m51-termux.sh`.
 It uses signed apt repositories and preserves Termux data and existing login methods.
+
+## Model selection
+
+The LAN chat header contains a model selector. Qwen3.5 2B is the default; Qwen3 1.7B remains available. Changing the selection applies to the next message and preserves the visible conversation. The first request after a switch waits for model loading. Only one model is loaded at a time (`--models-max 1`). The PC chat proxy serializes requests, returning HTTP 429 when busy.
+
+The native llama.cpp router requires `-DLLAMA_SUBPROCESS=ON` at build time. Presets are generated from installed approved files by `manage-ai.py setup`. The API accepts `model: "qwen3.5-2b"` or `model: "qwen3-1.7b"`; discover them with authenticated `/v1/models`. Tokenization and template requests must also specify the selected model. Thinking is selected with `chat_template_kwargs.enable_thinking`, not appended prompt commands.
+
+```powershell
+python -X utf8 .\scripts\query-ai.py --model qwen3.5-2b "Chào bạn"
+```
+
+The original benchmark and 30-minute soak describe Qwen3-1.7B before router mode. New model evidence is separate in `model-qwen35-verification.json`, `model-selection-results.json` and `router-stability-results.json`. Do not attribute the old generation rate or semantic tests to Qwen3.5.
+
+Android subprocess compatibility uses the vendor-supported `SUBPROCESS_HAVE_CWD=0` override (Android only), applied by `patch-android-subprocess.py`. The router inherits its working directory. The exact patch is recorded in `docs/android-subprocess.patch`; build evidence records the upstream commit plus this local modification.
+
+Thinking requests reserve output space by setting `reasoning_budget_tokens: 256` within a total `max_tokens: 768`. The unbounded Qwen3.5 extraction experiment exhausted all 768 tokens in reasoning and produced no final content; its failure remains in `qwen35-summary-unbounded-results.json`. Direct API jobs can still queue ahead of chat jobs; the UI semaphore only serializes requests through the PC proxy.

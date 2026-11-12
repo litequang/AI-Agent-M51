@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "checks": [],
+  "browser_visual_qa": "SKIP: browser/native control host unavailable",
+  "error": "HTTP Error 503: Service Unavailable",
+  "timestamp": "2026-11-12T20:53:16.354858+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

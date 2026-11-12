@@ -2,11 +2,11 @@
   "status": "PASS",
   "url": "http://<PC_LAN_IP>:8787",
   "browser_visual_qa": "SKIP: browser/native control host unavailable",
-  "synthetic_response": "Chào bạn! Chào bạn một cách ngắn gọn bằng tiếng Việt là: \"Chào bạn!\"",
+  "synthetic_response": "Chào bạn! Rất vui được phục vụ.",
   "assets": true,
   "streamed_chat": true,
   "credential_not_in_browser_assets": true,
   "cross_origin_blocked": true,
-  "timestamp": "2026-11-12T20:33:10.610066+07:00",
+  "timestamp": "2026-11-12T21:16:49.285490+07:00",
   "base_url": "http://127.0.0.1:8080"
 }
