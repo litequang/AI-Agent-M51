@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+models/
+llama.cpp/
+logs/
+run/
+config/server.env
+*.part
+tailscale/
+secrets/
+config/connection.local.json

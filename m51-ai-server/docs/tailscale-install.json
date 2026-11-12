@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "artifact": "tailscale_1.104.6_arm64.tgz",
+  "sha256": "d0e4f297da3c428d02162c6235b9948e4ddc245c64502b7b05647da9b96a0971",
+  "version": "1.104.6\n  tailscale commit: 3b273a64cef3fe6d3d495afae7bb6a553344ce64\n  long version: 1.104.6-t3b273a64c-gdf9d2ed85\n  other commit: df9d2ed85fe8d628d95cd3827089ab763de8a293\n  go version: go1.27.3 (tailscale/go 7ef7b40364)",
+  "mode": "static ARM64 binary verified; userspace daemon not yet validated"
+}

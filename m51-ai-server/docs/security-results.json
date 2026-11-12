@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "unauthenticated_http": 401,
+  "logs_checked": 23,
+  "authenticated_models": true,
+  "secret_values": "never included in results",
+  "timestamp": "2026-11-12T20:36:26.262276+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

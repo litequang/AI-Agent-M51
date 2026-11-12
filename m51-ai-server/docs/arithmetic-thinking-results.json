@@ -1,0 +1,72 @@
+{
+  "status": "FAIL",
+  "requests": [],
+  "health": {
+    "status": "ok"
+  },
+  "models": {
+    "models": [
+      {
+        "name": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "model": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "modified_at": "",
+        "size": "",
+        "digest": "",
+        "type": "model",
+        "description": "",
+        "tags": [
+          ""
+        ],
+        "capabilities": [
+          "completion"
+        ],
+        "parameters": "",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "",
+          "families": [
+            ""
+          ],
+          "parameter_size": "",
+          "quantization_level": ""
+        }
+      }
+    ],
+    "object": "list",
+    "data": [
+      {
+        "id": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "aliases": [
+          "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf"
+        ],
+        "tags": [],
+        "object": "model",
+        "architecture": {
+          "input_modalities": [
+            "text"
+          ],
+          "output_modalities": [
+            "text"
+          ]
+        },
+        "created": 1794489183,
+        "owned_by": "llamacpp",
+        "meta": {
+          "vocab_type": 2,
+          "n_vocab": 151936,
+          "n_ctx": 2048,
+          "n_ctx_train": 40960,
+          "n_embd": 2048,
+          "n_params": 1720574976,
+          "size": 1101457408,
+          "ftype": "Q4_K - Medium"
+        }
+      }
+    ]
+  },
+  "inference_mode": "thinking enabled per request; integer JSON schema",
+  "error": "Expecting value: line 1 column 1 (char 0)",
+  "timestamp": "2026-11-12T20:13:38.055123+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

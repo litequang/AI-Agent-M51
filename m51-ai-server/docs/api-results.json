@@ -1,0 +1,172 @@
+{
+  "status": "PASS",
+  "requests": [
+    {
+      "content": "Chào bạn!",
+      "seconds": 5.663076351978816,
+      "completion_tokens": 5,
+      "end_to_end_tokens_per_second": 0.8829123411434986,
+      "timings": {
+        "cache_n": 19,
+        "prompt_n": 53,
+        "prompt_ms": 4966.576,
+        "prompt_per_token_ms": 93.70898113207548,
+        "prompt_per_second": 10.671335745189442,
+        "predicted_n": 5,
+        "predicted_ms": 670.28,
+        "predicted_per_token_ms": 167.57,
+        "predicted_per_second": 5.967655308229397
+      },
+      "finish_reason": "stop",
+      "request_index": 1,
+      "pass": true
+    },
+    {
+      "content": "Chào bạn!",
+      "seconds": 0.8446054680971429,
+      "completion_tokens": 5,
+      "end_to_end_tokens_per_second": 5.919923785557261,
+      "timings": {
+        "cache_n": 71,
+        "prompt_n": 1,
+        "prompt_ms": 169.423,
+        "prompt_per_token_ms": 169.423,
+        "prompt_per_second": 5.902386334795158,
+        "predicted_n": 5,
+        "predicted_ms": 660.13,
+        "predicted_per_token_ms": 165.0325,
+        "predicted_per_second": 6.059412539954251
+      },
+      "finish_reason": "stop",
+      "request_index": 2,
+      "pass": true
+    },
+    {
+      "content": "Chào bạn!",
+      "seconds": 0.8339316659839824,
+      "completion_tokens": 5,
+      "end_to_end_tokens_per_second": 5.995695095832992,
+      "timings": {
+        "cache_n": 71,
+        "prompt_n": 1,
+        "prompt_ms": 160.517,
+        "prompt_per_token_ms": 160.517,
+        "prompt_per_second": 6.229869733423874,
+        "predicted_n": 5,
+        "predicted_ms": 665.761,
+        "predicted_per_token_ms": 166.44025,
+        "predicted_per_second": 6.008162088196816
+      },
+      "finish_reason": "stop",
+      "request_index": 3,
+      "pass": true
+    },
+    {
+      "content": "Chào bạn!",
+      "seconds": 0.8708319269353524,
+      "completion_tokens": 5,
+      "end_to_end_tokens_per_second": 5.741636067014781,
+      "timings": {
+        "cache_n": 71,
+        "prompt_n": 1,
+        "prompt_ms": 189.757,
+        "prompt_per_token_ms": 189.757,
+        "prompt_per_second": 5.269897816681334,
+        "predicted_n": 5,
+        "predicted_ms": 666.322,
+        "predicted_per_token_ms": 166.5805,
+        "predicted_per_second": 6.0031036045635595
+      },
+      "finish_reason": "stop",
+      "request_index": 4,
+      "pass": true
+    },
+    {
+      "content": "Chào bạn!",
+      "seconds": 0.8657755720196292,
+      "completion_tokens": 5,
+      "end_to_end_tokens_per_second": 5.775168717611541,
+      "timings": {
+        "cache_n": 71,
+        "prompt_n": 1,
+        "prompt_ms": 183.263,
+        "prompt_per_token_ms": 183.263,
+        "prompt_per_second": 5.45663881961989,
+        "predicted_n": 5,
+        "predicted_ms": 668.708,
+        "predicted_per_token_ms": 167.177,
+        "predicted_per_second": 5.981684083336823
+      },
+      "finish_reason": "stop",
+      "request_index": 5,
+      "pass": true
+    }
+  ],
+  "health": {
+    "status": "ok"
+  },
+  "models": {
+    "models": [
+      {
+        "name": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "model": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "modified_at": "",
+        "size": "",
+        "digest": "",
+        "type": "model",
+        "description": "",
+        "tags": [
+          ""
+        ],
+        "capabilities": [
+          "completion"
+        ],
+        "parameters": "",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "",
+          "families": [
+            ""
+          ],
+          "parameter_size": "",
+          "quantization_level": ""
+        }
+      }
+    ],
+    "object": "list",
+    "data": [
+      {
+        "id": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "aliases": [
+          "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf"
+        ],
+        "tags": [],
+        "object": "model",
+        "architecture": {
+          "input_modalities": [
+            "text"
+          ],
+          "output_modalities": [
+            "text"
+          ]
+        },
+        "created": 1794489339,
+        "owned_by": "llamacpp",
+        "meta": {
+          "vocab_type": 2,
+          "n_vocab": 151936,
+          "n_ctx": 2048,
+          "n_ctx_train": 40960,
+          "n_embd": 2048,
+          "n_params": 1720574976,
+          "size": 1101457408,
+          "ftype": "Q4_K - Medium"
+        }
+      }
+    ]
+  },
+  "scope": "HTTP/model availability and five completed responses; semantic arithmetic probes retained separately",
+  "timestamp": "2026-11-12T20:15:48.688635+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

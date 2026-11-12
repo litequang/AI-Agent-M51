@@ -1,0 +1,64 @@
+{
+  "status": "FAIL",
+  "checks": {
+    "json_schema_keys": true,
+    "summary_quotation": true,
+    "summary_hazard": true,
+    "owner_task_deadline": false,
+    "no_unconfirmed_owner_or_deadline": false,
+    "urgent_positive": true,
+    "not_truncated": true,
+    "urgent_negative": true
+  },
+  "response": {
+    "content": "{\n  \"summary\": \"Lan và Minh nhận nhiệm vụ gửi báo giá trước 15:00. An yêu cầu ngắt điện vì máy in bốc khói.\",\n  \"tasks\": [\n    {\n      \"owner\": \"Lan\",\n      \"task\": \"Gửi báo giá cho khách An trước 15:00 hôm nay\",\n      \"deadline\": \"15:00 hôm nay\"\n    }\n  ],\n  \"urgent\": true,\n  \"urgent_evidence\": \"An: KHẨN CẤP! Máy in đang bốc khói. Ngắt điện ngay và gọi người phụ trách an toàn!\"\n}",
+    "seconds": 57.32289575901814,
+    "completion_tokens": 140,
+    "end_to_end_tokens_per_second": 2.442305088503401,
+    "timings": {
+      "cache_n": 37,
+      "prompt_n": 291,
+      "prompt_ms": 27352.552,
+      "prompt_per_token_ms": 93.99502405498282,
+      "prompt_per_second": 10.638861046676741,
+      "predicted_n": 140,
+      "predicted_ms": 29959.555,
+      "predicted_per_token_ms": 215.53636690647483,
+      "predicted_per_second": 4.6395882715881465
+    },
+    "finish_reason": "stop"
+  },
+  "parsed": {
+    "summary": "Lan và Minh nhận nhiệm vụ gửi báo giá trước 15:00. An yêu cầu ngắt điện vì máy in bốc khói.",
+    "tasks": [
+      {
+        "owner": "Lan",
+        "task": "Gửi báo giá cho khách An trước 15:00 hôm nay",
+        "deadline": "15:00 hôm nay"
+      }
+    ],
+    "urgent": true,
+    "urgent_evidence": "An: KHẨN CẤP! Máy in đang bốc khói. Ngắt điện ngay và gọi người phụ trách an toàn!"
+  },
+  "nonurgent_response": {
+    "content": "{\"urgent\": false}",
+    "seconds": 8.846804111031815,
+    "completion_tokens": 6,
+    "end_to_end_tokens_per_second": 0.6782110154918092,
+    "timings": {
+      "cache_n": 37,
+      "prompt_n": 53,
+      "prompt_ms": 5026.474,
+      "prompt_per_token_ms": 94.8391320754717,
+      "prompt_per_second": 10.544170724846085,
+      "predicted_n": 6,
+      "predicted_ms": 888.22,
+      "predicted_per_token_ms": 177.644,
+      "predicted_per_second": 5.629236000090067
+    },
+    "finish_reason": "stop"
+  },
+  "error": "One or more semantic acceptance checks failed",
+  "timestamp": "2026-11-12T20:03:22.527784+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

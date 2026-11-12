@@ -1,0 +1,68 @@
+{
+  "status": "FAIL",
+  "checks": {
+    "json_schema_keys": true,
+    "summary_quotation": true,
+    "summary_hazard": false,
+    "owner_task_deadline": true,
+    "urgent_positive": false,
+    "not_truncated": true,
+    "urgent_negative": true
+  },
+  "response": {
+    "content": "{\"summary\": \"Gửi báo giá\", \"tasks\": [{\"owner\": \"Minh\", \"task\": \"Gửi báo giá\", \"deadline\": \"15:00 hôm nay\"}, {\"owner\": \"Lan\", \"task\": \"Ưu tiên xử lý nguy cơ cháy\", \"deadline\": \"15:00 hôm nay\"}], \"urgent\": true, \"urgent_evidence\": \"An: KHẨN CẤP!\"}",
+    "seconds": 37.432645871071145,
+    "completion_tokens": 108,
+    "end_to_end_tokens_per_second": 2.8851821047324098,
+    "timings": {
+      "cache_n": 37,
+      "prompt_n": 171,
+      "prompt_ms": 15982.335,
+      "prompt_per_token_ms": 93.46394736842105,
+      "prompt_per_second": 10.699312709938818,
+      "predicted_n": 108,
+      "predicted_ms": 21436.484,
+      "predicted_per_token_ms": 200.34097196261683,
+      "predicted_per_second": 4.991490208935383
+    },
+    "finish_reason": "stop"
+  },
+  "parsed": {
+    "summary": "Gửi báo giá",
+    "tasks": [
+      {
+        "owner": "Minh",
+        "task": "Gửi báo giá",
+        "deadline": "15:00 hôm nay"
+      },
+      {
+        "owner": "Lan",
+        "task": "Ưu tiên xử lý nguy cơ cháy",
+        "deadline": "15:00 hôm nay"
+      }
+    ],
+    "urgent": true,
+    "urgent_evidence": "An: KHẨN CẤP!"
+  },
+  "nonurgent_response": {
+    "content": "{\"urgent\": false}",
+    "seconds": 6.422294789925218,
+    "completion_tokens": 6,
+    "end_to_end_tokens_per_second": 0.9342454988849656,
+    "timings": {
+      "cache_n": 37,
+      "prompt_n": 53,
+      "prompt_ms": 5490.732,
+      "prompt_per_token_ms": 103.59871698113207,
+      "prompt_per_second": 9.652629194067385,
+      "predicted_n": 6,
+      "predicted_ms": 902.715,
+      "predicted_per_token_ms": 180.543,
+      "predicted_per_second": 5.538846701339847
+    },
+    "finish_reason": "stop"
+  },
+  "error": "One or more semantic acceptance checks failed",
+  "timestamp": "2026-11-12T20:00:04.540046+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

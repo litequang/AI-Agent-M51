@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "old_pid": 7260,
+  "new_pid": 7313,
+  "recovery_seconds": 2.0307147389976308,
+  "timestamp": "2026-11-12T20:00:06.802481+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

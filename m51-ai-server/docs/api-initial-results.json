@@ -1,0 +1,172 @@
+{
+  "status": "FAIL",
+  "requests": [
+    {
+      "content": "0+1=1",
+      "seconds": 6.760150934918784,
+      "completion_tokens": 6,
+      "end_to_end_tokens_per_second": 0.887554147498052,
+      "timings": {
+        "cache_n": 0,
+        "prompt_n": 64,
+        "prompt_ms": 5903.247,
+        "prompt_per_token_ms": 92.238234375,
+        "prompt_per_second": 10.841491131914351,
+        "predicted_n": 6,
+        "predicted_ms": 848.922,
+        "predicted_per_token_ms": 169.7844,
+        "predicted_per_second": 5.889822622101912
+      },
+      "finish_reason": "stop",
+      "expected": "1",
+      "pass": false
+    },
+    {
+      "content": "2",
+      "seconds": 2.4451562489848584,
+      "completion_tokens": 2,
+      "end_to_end_tokens_per_second": 0.8179436389107357,
+      "timings": {
+        "cache_n": 40,
+        "prompt_n": 24,
+        "prompt_ms": 2275.727,
+        "prompt_per_token_ms": 94.82195833333333,
+        "prompt_per_second": 10.546080439349712,
+        "predicted_n": 2,
+        "predicted_ms": 161.544,
+        "predicted_per_token_ms": 161.544,
+        "predicted_per_second": 6.1902639528549495
+      },
+      "finish_reason": "stop",
+      "expected": "2",
+      "pass": true
+    },
+    {
+      "content": "3",
+      "seconds": 2.4513556249439716,
+      "completion_tokens": 2,
+      "end_to_end_tokens_per_second": 0.8158750936211926,
+      "timings": {
+        "cache_n": 40,
+        "prompt_n": 24,
+        "prompt_ms": 2284.84,
+        "prompt_per_token_ms": 95.20166666666667,
+        "prompt_per_second": 10.504017786803452,
+        "predicted_n": 2,
+        "predicted_ms": 159.762,
+        "predicted_per_token_ms": 159.762,
+        "predicted_per_second": 6.2593107247029955
+      },
+      "finish_reason": "stop",
+      "expected": "3",
+      "pass": true
+    },
+    {
+      "content": "3",
+      "seconds": 2.4494519260479137,
+      "completion_tokens": 2,
+      "end_to_end_tokens_per_second": 0.8165091867007632,
+      "timings": {
+        "cache_n": 40,
+        "prompt_n": 24,
+        "prompt_ms": 2281.947,
+        "prompt_per_token_ms": 95.081125,
+        "prompt_per_second": 10.517334539321027,
+        "predicted_n": 2,
+        "predicted_ms": 160.645,
+        "predicted_per_token_ms": 160.645,
+        "predicted_per_second": 6.224905848299044
+      },
+      "finish_reason": "stop",
+      "expected": "4",
+      "pass": false
+    },
+    {
+      "content": "4",
+      "seconds": 2.4619652590481564,
+      "completion_tokens": 2,
+      "end_to_end_tokens_per_second": 0.8123591479000962,
+      "timings": {
+        "cache_n": 40,
+        "prompt_n": 24,
+        "prompt_ms": 2286.578,
+        "prompt_per_token_ms": 95.27408333333334,
+        "prompt_per_second": 10.496033811223583,
+        "predicted_n": 2,
+        "predicted_ms": 169.253,
+        "predicted_per_token_ms": 169.253,
+        "predicted_per_second": 5.908314771377761
+      },
+      "finish_reason": "stop",
+      "expected": "5",
+      "pass": false
+    }
+  ],
+  "health": {
+    "status": "ok"
+  },
+  "models": {
+    "models": [
+      {
+        "name": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "model": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "modified_at": "",
+        "size": "",
+        "digest": "",
+        "type": "model",
+        "description": "",
+        "tags": [
+          ""
+        ],
+        "capabilities": [
+          "completion"
+        ],
+        "parameters": "",
+        "details": {
+          "parent_model": "",
+          "format": "gguf",
+          "family": "",
+          "families": [
+            ""
+          ],
+          "parameter_size": "",
+          "quantization_level": ""
+        }
+      }
+    ],
+    "object": "list",
+    "data": [
+      {
+        "id": "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf",
+        "aliases": [
+          "/data/data/com.termux/files/home/m51-ai-server/models/Qwen3-1.7B-Q4_K_M.gguf"
+        ],
+        "tags": [],
+        "object": "model",
+        "architecture": {
+          "input_modalities": [
+            "text"
+          ],
+          "output_modalities": [
+            "text"
+          ]
+        },
+        "created": 1794488338,
+        "owned_by": "llamacpp",
+        "meta": {
+          "vocab_type": 2,
+          "n_vocab": 151936,
+          "n_ctx": 2048,
+          "n_ctx_train": 40960,
+          "n_embd": 2048,
+          "n_params": 1720574976,
+          "size": 1101457408,
+          "ftype": "Q4_K - Medium"
+        }
+      }
+    ]
+  },
+  "error": "Repeated request check failed",
+  "timestamp": "2026-11-12T19:59:15.522298+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

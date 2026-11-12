@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "phone_tailscale_ipv4": "<REDACTED_NETWORK_ADDRESS>",
+  "private_ssh_port": 8022,
+  "serve": {
+    "TCP": {
+      "8022": {
+        "TCPForward": "127.0.0.1:8022"
+      }
+    }
+  },
+  "api_public": false,
+  "detail": "PC verified SSH key over Tailscale address and API request through its SSH tunnel",
+  "pc_backend": "Running",
+  "ssh_verification": "Linux localhost 4.14.190-23974023-abM515FXXS6DXE3 #1 SMP PREEMPT Tue May 14 16:09:43 KST 2024 aarch64 Android\n<TERMUX_USER>\n",
+  "api_base": "http://127.0.0.1:18081",
+  "actual_cellular_path": "SKIP: no independent 4G/5G client tested",
+  "health": {
+    "status": "ok"
+  },
+  "synthetic_response": {
+    "content": "Thủ đô Việt Nam là Hà Nội.",
+    "seconds": 4.557995899999696,
+    "completion_tokens": 10,
+    "end_to_end_tokens_per_second": 2.1939466860864587,
+    "timings": {
+      "cache_n": 47,
+      "prompt_n": 31,
+      "prompt_ms": 3010.138,
+      "prompt_per_token_ms": 97.10122580645161,
+      "prompt_per_second": 10.298531163687514,
+      "predicted_n": 10,
+      "predicted_ms": 1464.677,
+      "predicted_per_token_ms": 162.74188888888887,
+      "predicted_per_second": 6.144699479817053
+    },
+    "finish_reason": "stop"
+  }
+}

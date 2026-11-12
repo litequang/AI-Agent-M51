@@ -1,0 +1,64 @@
+{
+  "status": "PASS",
+  "checks": {
+    "json_schema_keys": true,
+    "summary_quotation": true,
+    "summary_hazard": true,
+    "owner_task_deadline": true,
+    "no_unconfirmed_owner_or_deadline": true,
+    "urgent_positive": true,
+    "not_truncated": true,
+    "urgent_negative": true
+  },
+  "inference_mode": "thinking enabled per request for structured extraction; server default remains non-thinking",
+  "response": {
+    "content": "{\n  \"summary\": \"Minh nhận việc gửi báo giá trước 15:00 hôm nay. An khẩn cấp yêu cầu ngắt điện và gọi người phụ trách an toàn do máy in đang bốc khói.\",\n  \"tasks\": [\n    {\n      \"owner\": \"Minh\",\n      \"task\": \"Gửi báo giá cho khách An trước 15:00 hôm nay\",\n      \"deadline\": \"15:00 hôm nay\"\n    }\n  ],\n  \"urgent\": true,\n  \"urgent_evidence\": \"An: KHẨN CẤP! Máy in đang bốc khói. Ngắt điện ngay và gọi người phụ trách an toàn!\"\n}",
+    "seconds": 117.7054056840716,
+    "completion_tokens": 361,
+    "end_to_end_tokens_per_second": 3.0669789369652722,
+    "timings": {
+      "cache_n": 19,
+      "prompt_n": 313,
+      "prompt_ms": 29626.776,
+      "prompt_per_token_ms": 94.65423642172524,
+      "prompt_per_second": 10.564767492757227,
+      "predicted_n": 361,
+      "predicted_ms": 88046.73,
+      "predicted_per_token_ms": 244.57424999999998,
+      "predicted_per_second": 4.088737878169922
+    },
+    "finish_reason": "stop"
+  },
+  "parsed": {
+    "summary": "Minh nhận việc gửi báo giá trước 15:00 hôm nay. An khẩn cấp yêu cầu ngắt điện và gọi người phụ trách an toàn do máy in đang bốc khói.",
+    "tasks": [
+      {
+        "owner": "Minh",
+        "task": "Gửi báo giá cho khách An trước 15:00 hôm nay",
+        "deadline": "15:00 hôm nay"
+      }
+    ],
+    "urgent": true,
+    "urgent_evidence": "An: KHẨN CẤP! Máy in đang bốc khói. Ngắt điện ngay và gọi người phụ trách an toàn!"
+  },
+  "nonurgent_response": {
+    "content": "{\n  \"urgent\": false\n}",
+    "seconds": 12.404965932946652,
+    "completion_tokens": 13,
+    "end_to_end_tokens_per_second": 1.0479674083967438,
+    "timings": {
+      "cache_n": 19,
+      "prompt_n": 81,
+      "prompt_ms": 9293.682,
+      "prompt_per_token_ms": 114.73681481481482,
+      "prompt_per_second": 8.715598403302371,
+      "predicted_n": 13,
+      "predicted_ms": 2482.999,
+      "predicted_per_token_ms": 206.9165833333333,
+      "predicted_per_second": 4.83286541798849
+    },
+    "finish_reason": "stop"
+  },
+  "timestamp": "2026-11-12T20:07:57.686597+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

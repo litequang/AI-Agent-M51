@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "phone": "<M51_LAN_IP>",
+  "port": 8080,
+  "health": {
+    "status": "ok"
+  },
+  "direct_lan_connect_code": 10061,
+  "timestamp": "2026-11-12T20:02:27.071106+07:00",
+  "base_url": "http://127.0.0.1:18080"
+}

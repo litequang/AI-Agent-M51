@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "response": {
+    "content": "Thủ đô của Việt Nam là Hà Nội.",
+    "seconds": 4.755909894010983,
+    "completion_tokens": 11,
+    "end_to_end_tokens_per_second": 2.3129117761150324,
+    "timings": {
+      "cache_n": 37,
+      "prompt_n": 33,
+      "prompt_ms": 3119.558,
+      "prompt_per_token_ms": 94.53206060606061,
+      "prompt_per_second": 10.57842168666202,
+      "predicted_n": 11,
+      "predicted_ms": 1629.291,
+      "predicted_per_token_ms": 162.9291,
+      "predicted_per_second": 6.137639009851524
+    },
+    "finish_reason": "stop"
+  },
+  "timestamp": "2026-11-12T19:59:20.478304+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

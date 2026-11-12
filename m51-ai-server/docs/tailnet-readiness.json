@@ -1,0 +1,14 @@
+{
+  "pc_installed": true,
+  "pc_backend": "Running",
+  "pc_ips": [
+    "<REDACTED_NETWORK_ADDRESS>",
+    "<REDACTED_IPV6>"
+  ],
+  "phone_backend": "Running",
+  "phone_ips": [
+    "<REDACTED_NETWORK_ADDRESS>",
+    "<REDACTED_IPV6>"
+  ],
+  "same_tailnet": true
+}

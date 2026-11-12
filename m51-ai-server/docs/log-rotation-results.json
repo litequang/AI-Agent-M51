@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "observed_files": {
+    "config": 10,
+    "lock": 0,
+    "current": 24080,
+    "@400000006af5b51d37c78c74.s": 64715,
+    "@400000006af5b51d382a519c.s": 64715
+  },
+  "isolation": "temporary synthetic logs; production logs untouched",
+  "timestamp": "2026-11-12T19:46:11.959137+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

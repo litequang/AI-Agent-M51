@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "stop_closed_listener": true,
+  "restarted_health": {
+    "status": "ok"
+  },
+  "timestamp": "2026-11-12T20:00:37.029509+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}
