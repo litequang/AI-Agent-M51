@@ -1,5 +1,6 @@
 """Real LAN streaming, model switching and validation. Synthetic prompts only."""
 import json
+import os
 import sys
 import time
 import urllib.error
@@ -8,8 +9,8 @@ from common import ROOT, save
 sys.path.insert(0, str(ROOT / "scripts"))
 from access import required
 
-URL = "http://" + required("PC_LAN_IP") + ":8787"
-report = {"status": "FAIL", "checks": [], "browser_visual_qa": "SKIP: browser/native control host unavailable"}
+URL = os.environ.get("M51_CHAT_URL") or "http://" + required("PC_LAN_IP") + ":8787"
+report = {"status": "FAIL", "url": URL, "checks": [], "browser_visual_qa": "SKIP: browser/native control host unavailable"}
 
 def stream(model, prompt):
     payload = {"model": model, "messages": [{"role": "user", "content": prompt}], "thinking": False}

@@ -14,8 +14,8 @@ Read the measured JSON/Markdown reports in `m51-ai-server/docs/` before claiming
 ## Runtime constraints
 
 - Keep llama.cpp listening at `127.0.0.1:8080`, CPU only. No router forwarding or public Funnel.
-- The LAN chat UI intentionally binds only to PC `<PC_LAN_IP>:8787`, with a Windows firewall rule restricted to `<LAN_SUBNET>`. Its backend keeps the model key out of browser code.
-- The user also requested remote chat: PC Tailscale Serve privately forwards tailnet TCP 8787 to the existing LAN chat listener. Keep it private; no Funnel or Internet router forwarding. Use scripts/enable-remote-chat.ps1 and docs/remote-chat-results.json. Actual cellular access is still unverified.
+- The primary chat now runs ON M51 as runit service m51-chat, bound to 127.0.0.1:8787 and calling the phone API at 127.0.0.1:8080 directly. Phone Tailscale Serve forwards private TCP8787 to this listener and preserves SSH8022. No PC backend or API tunnel is required. Keep the model key outside browser code.
+- The former PC chat, both PC API tunnels and PC Serve8787 mapping were stopped. Their scripts are legacy optional helpers, not the primary architecture. See phone-chat.md and phone-pc-independence-results.json. Real cellular/reboot tests remain unverified.
 - Do not use Magisk/root, reinstall Termux, delete phone data or weaken Android thermal/battery protection to solve routine setup issues.
 - Preserve the Tailscale daemon's restricted helper PATH and explicit state directory. Official Linux binaries otherwise hit Android's blocked `faccessat2` syscall after login.
 - Router mode uses `--models-max 1` and `LLAMA_SUBPROCESS=ON`. Keep the chosen model in every template, tokenize and chat request. The old 30-minute benchmark applies only to the original single-model deployment.

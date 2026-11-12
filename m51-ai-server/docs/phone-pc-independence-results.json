@@ -1,0 +1,8 @@
+{
+    "physical_pc_shutdown":  "SKIP: verified with PC services stopped, PC remains on as test client",
+    "phone_chat_url":  "http://<REDACTED_NETWORK_ADDRESS>:8787",
+    "model_switch_test":  "phone-model-selection-results.json",
+    "ui_security_test":  "phone-chat-ui-results.json",
+    "status":  "PASS",
+    "pc_chat_and_api_tunnel_listeners":  0
+}

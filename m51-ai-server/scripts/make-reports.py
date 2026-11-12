@@ -10,7 +10,7 @@ DOCS = ROOT / "docs"
 
 def get(name):
     path = DOCS / (name + ".json")
-    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else {"status": "SKIP"}
+    return json.loads(path.read_text(encoding="utf-8-sig")) if path.exists() else {"status": "SKIP"}
 
 
 def accepted(value):
@@ -28,6 +28,9 @@ idle = get("idle-results")
 recovery = get("recovery-results")
 now = datetime.datetime.now().astimezone().isoformat()
 rows = [
+    ("Phone-hosted chat without PC backend/tunnels", get("phone-pc-independence-results").get("status", "SKIP"), "PC listeners stopped; direct phone streaming and both model choices PASS"),
+    ("Phone chat assets/security/streaming", get("phone-chat-ui-results").get("status", "SKIP"), "phone-chat-ui-results.json"),
+    ("Phone chat runit crash recovery", get("phone-chat-service-results").get("status", "SKIP"), "phone-chat-service-results.json; one-minute observation, not endurance"),
     ("Qwen3.5-2B checksum", get("model-qwen35-verification").get("status", "SKIP"), "model-qwen35-verification.json"),
     ("Chat model selector and actual switches", get("model-selection-results").get("status", "SKIP"), "Both model IDs checked in streamed replies, invalid model blocked"),
     ("Router post-change five-minute soak", get("router-stability-results").get("status", "SKIP"), "router-stability-results.json; distinct from original 30-minute soak"),

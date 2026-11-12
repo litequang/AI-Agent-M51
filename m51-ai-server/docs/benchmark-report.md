@@ -1,6 +1,6 @@
 # Benchmark report
 
-Generated: 2026-11-12T21:16:50.862662+07:00
+Generated: 2026-11-12T21:42:28.446363+07:00
 
 CPU only, context 2048, threads 4, batch/ubatch 128, one slot, idle polling disabled. Chat defaults to non-thinking; the structured extraction retest can override thinking per request, as recorded in summary-results.json.
 

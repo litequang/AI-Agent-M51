@@ -1,9 +1,12 @@
 # Deployment report
 
-Generated: 2026-11-12T21:16:50.862662+07:00
+Generated: 2026-11-12T21:42:28.446363+07:00
 
 | Item | Status | Evidence / limitation |
 |---|---|---|
+| Phone-hosted chat without PC backend/tunnels | PASS | PC listeners stopped; direct phone streaming and both model choices PASS |
+| Phone chat assets/security/streaming | PASS | phone-chat-ui-results.json |
+| Phone chat runit crash recovery | PASS | phone-chat-service-results.json; one-minute observation, not endurance |
 | Qwen3.5-2B checksum | PASS | model-qwen35-verification.json |
 | Chat model selector and actual switches | PASS | Both model IDs checked in streamed replies, invalid model blocked |
 | Router post-change five-minute soak | PASS | router-stability-results.json; distinct from original 30-minute soak |

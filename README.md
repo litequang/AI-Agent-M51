@@ -1,6 +1,6 @@
 # AI Agent M51
 
-Samsung Galaxy M51 running a private Qwen3 AI server in Termux, with a LAN chat UI and private Tailscale + SSH access.
+Samsung Galaxy M51 running a private Qwen3 AI server in Termux, with chat hosted on the phone and private Tailscale + SSH access; no PC backend is required. See m51-ai-server/docs/phone-chat.md.
 
 **Active implementation:** [codex/m51-ai-server-20261112](https://github.com/litequang/AI-Agent-M51/tree/codex/m51-ai-server-20261112).
 

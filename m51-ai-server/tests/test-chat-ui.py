@@ -1,4 +1,5 @@
 import json
+import os
 from pathlib import Path
 import urllib.error
 import urllib.request
@@ -7,7 +8,7 @@ from common import ROOT, save
 sys.path.insert(0, str(ROOT / "scripts"))
 from access import required
 
-URL = "http://" + required("PC_LAN_IP") + ":8787"
+URL = os.environ.get("M51_CHAT_URL") or "http://" + required("PC_LAN_IP") + ":8787"
 result = {"status": "FAIL", "url": URL, "browser_visual_qa": "SKIP: browser/native control host unavailable"}
 try:
     secret = (ROOT / "secrets/ai-api.key").read_bytes().strip()

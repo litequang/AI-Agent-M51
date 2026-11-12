@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "samples": [
+    {
+      "seconds": 0.015563072985969484,
+      "chat_pid": 20998,
+      "chat_rss_kb": 26176
+    },
+    {
+      "seconds": 15.043473327998072,
+      "chat_pid": 20998,
+      "chat_rss_kb": 26140
+    },
+    {
+      "seconds": 30.100312644965015,
+      "chat_pid": 20998,
+      "chat_rss_kb": 26080
+    },
+    {
+      "seconds": 45.176247430965304,
+      "chat_pid": 20998,
+      "chat_rss_kb": 26068
+    },
+    {
+      "seconds": 60.2458326339256,
+      "chat_pid": 20998,
+      "chat_rss_kb": 26056
+    }
+  ],
+  "reboot": "SKIP: actual reboot not performed",
+  "chat_args": [
+    "/data/data/com.termux/files/usr/bin/python",
+    "-u",
+    "/data/data/com.termux/files/home/m51-ai-server/scripts/chat-ui.py",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "8787",
+    "--upstream",
+    "http://127.0.0.1:8080"
+  ],
+  "old_pid": 20715,
+  "replacement_pid": 20998,
+  "recovery_seconds": 1.112163437064737,
+  "observation_seconds": 60.24586247699335,
+  "loopback_upstream_on_phone": true,
+  "pc_api_tunnel_required": false,
+  "timestamp": "2026-11-12T21:39:17.812019+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

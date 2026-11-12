@@ -1,7 +1,8 @@
-"""LAN-only chat UI. Keep the model credential on the PC, outside browser code."""
+"""Chat proxy on M51 loopback or the optional Windows LAN listener."""
 import argparse
 import ipaddress
 import json
+import os
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 import threading
@@ -12,15 +13,15 @@ from access import required
 
 ROOT = Path(__file__).resolve().parents[1]
 parser = argparse.ArgumentParser()
-parser.add_argument("--host", default=required("PC_LAN_IP"))
+parser.add_argument("--host", default=required("PC_LAN_IP") if os.name == "nt" else "127.0.0.1")
 parser.add_argument("--port", type=int, default=8787)
-parser.add_argument("--upstream", default="http://127.0.0.1:18081")
+parser.add_argument("--upstream", default="http://127.0.0.1:18081" if os.name == "nt" else "http://127.0.0.1:8080")
 args = parser.parse_args()
 if not ipaddress.ip_address(args.host).is_private or args.host == "0.0.0.0":
     raise SystemExit("Bind to the PC's specific private LAN address")
 KEY = (ROOT / "secrets/ai-api.key").read_text().strip()
 BASE = args.upstream.rstrip("/")
-NETWORK = ipaddress.ip_network(args.host + "/24", strict=False)
+NETWORK = ipaddress.ip_network(args.host + ("/32" if ipaddress.ip_address(args.host).is_loopback else "/24"), strict=False)
 SLOTS = threading.BoundedSemaphore(1)
 CATALOG = {"qwen3.5-2b": "Qwen3.5 · 2B", "qwen3-1.7b": "Qwen3 · 1.7B"}
 
@@ -62,7 +63,7 @@ class Handler(BaseHTTPRequestHandler):
 
     def do_GET(self):
         if not self.allowed():
-            return self.reply(403, {"error": "Chỉ dành cho mạng LAN."})
+            return self.reply(403, {"error": "Truy cập không được phép."})
         route = urllib.parse.urlsplit(self.path).path
         if route == "/api/models":
             try:

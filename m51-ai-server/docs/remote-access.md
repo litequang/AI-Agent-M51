@@ -1,14 +1,12 @@
 # Private API access from outside the LAN
 
-## Private chat UI
+## Primary phone-hosted chat
 
-The PC now runs a background Tailscale Serve TCP forwarder on port 8787 to its existing LAN chat listener. An authorized client signs into the same tailnet, enables Tailscale, and opens the PC's Tailscale IPv4 on HTTP port 8787. The operator's local access map contains the live URL. This does not enable public Funnel or Internet router forwarding.
+The primary UI and proxy now run on M51 itself at loopback port8787 and call the phone API directly at loopback8080. Phone Tailscale Serve maps private TCP8787 to this listener. Clients open the phone Tailscale IP on HTTP port8787. The PC backend, API tunnels and PC Serve mapping have been stopped; they are not required. See phone-chat.md for actual checks and operations. Cellular and reboot tests remain unverified.
 
-The PC, chat process, SSH API tunnel and M51 must stay online. The current UI is hosted by the PC; the model runs on M51. The remote browser receives no model API key. Traffic travels inside Tailscale's encrypted network.
+## Historical PC-hosted deployment
 
-Run scripts/enable-remote-chat.ps1 on the PC to restore this mapping after a LAN address/configuration change. Disable this mapping only with tailscale serve --tcp=8787 off; do not reset unrelated mappings.
-
-An actual M51-to-PC tailnet probe fetched the page and model catalog, then streamed a Qwen3.5 answer successfully. Evidence: remote-chat-results.json. Both peers currently share a LAN; a real 4G/5G path remains SKIP.
+The earlier remote-chat-results.json records the former PC-hosted mapping. That was replaced by the phone-hosted service after the user clarified that the PC must be able to turn off. Do not treat the historical PC URL as the primary endpoint.
 
 ## Direct model API
 

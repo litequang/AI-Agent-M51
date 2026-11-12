@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "url": "http://<REDACTED_NETWORK_ADDRESS>:8787",
+  "checks": [
+    {
+      "model": "qwen3.5-2b",
+      "reported_models": [
+        "qwen3.5-2b"
+      ],
+      "response": "Thành phố Thủ đô Việt Nam là Hà Nội.",
+      "seconds": 5.518368299999565,
+      "first_content_seconds": 3.6518433000001096
+    },
+    {
+      "model": "qwen3-1.7b",
+      "reported_models": [
+        "qwen3-1.7b"
+      ],
+      "response": "Thủ đô Việt Nam là Hà Nội.",
+      "seconds": 13.486842799999067,
+      "first_content_seconds": 12.028804800000216
+    },
+    {
+      "model": "qwen3.5-2b",
+      "reported_models": [
+        "qwen3.5-2b"
+      ],
+      "response": "Thành phố Thủ đô Việt Nam là Hà Nội.",
+      "seconds": 11.794269400001212,
+      "first_content_seconds": 9.942995800000062
+    }
+  ],
+  "browser_visual_qa": "SKIP: browser/native control host unavailable",
+  "catalog": {
+    "models": [
+      {
+        "id": "qwen3.5-2b",
+        "name": "Qwen3.5 · 2B"
+      },
+      {
+        "id": "qwen3-1.7b",
+        "name": "Qwen3 · 1.7B"
+      }
+    ],
+    "default": "qwen3.5-2b"
+  },
+  "invalid_models_blocked": true,
+  "actual_switches": 2,
+  "timestamp": "2026-11-12T21:37:43.728926+07:00",
+  "base_url": "http://127.0.0.1:8080"
+}

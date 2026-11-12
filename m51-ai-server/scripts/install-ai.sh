@@ -34,4 +34,5 @@ python "$ROOT/scripts/download-model.py"
 python "$ROOT/scripts/download-model.py" qwen3.5-2b
 [[ -f "$ROOT/config/server.env" ]] || cp "$ROOT/config/server.env.example" "$ROOT/config/server.env"
 python "$ROOT/scripts/manage-ai.py" setup
+python "$ROOT/scripts/manage-chat.py" setup
 echo 'PASS: install complete; run scripts/start-ai.sh'

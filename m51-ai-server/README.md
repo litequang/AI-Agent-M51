@@ -1,6 +1,6 @@
 # Samsung M51 local AI server
 
-Windows PC -> SSH tunnel -> Termux llama.cpp CPU router -> Qwen3.5-2B / Qwen3-1.7B Q4_K_M.
+Client -> phone Tailscale Serve -> M51 chat loopback8787 -> M51 AI router loopback8080 -> Qwen3.5-2B / Qwen3-1.7B. No PC server required. See docs/phone-chat.md; PC tunnel instructions below are optional legacy access.
 
 M51: `<M51_LAN_IP>`, Termux user `<TERMUX_USER>`, SSH port `8022`.
 No root, Debian environment, paid AI API, Internet port forwarding or real Zalo data is used.
@@ -70,7 +70,7 @@ It uses signed apt repositories and preserves Termux data and existing login met
 
 ## Model selection
 
-The LAN chat header contains a model selector. Qwen3.5 2B is the default; Qwen3 1.7B remains available. Changing the selection applies to the next message and preserves the visible conversation. The first request after a switch waits for model loading. Only one model is loaded at a time (`--models-max 1`). The PC chat proxy serializes requests, returning HTTP 429 when busy.
+The LAN chat header contains a model selector. Qwen3.5 2B is the default; Qwen3 1.7B remains available. Changing the selection applies to the next message and preserves the visible conversation. The first request after a switch waits for model loading. Only one model is loaded at a time (`--models-max 1`). The chat proxy on M51 serializes requests, returning HTTP 429 when busy.
 
 The native llama.cpp router requires `-DLLAMA_SUBPROCESS=ON` at build time. Presets are generated from installed approved files by `manage-ai.py setup`. The API accepts `model: "qwen3.5-2b"` or `model: "qwen3-1.7b"`; discover them with authenticated `/v1/models`. Tokenization and template requests must also specify the selected model. Thinking is selected with `chat_template_kwargs.enable_thinking`, not appended prompt commands.
 
@@ -82,4 +82,4 @@ The original benchmark and 30-minute soak describe Qwen3-1.7B before router mode
 
 Android subprocess compatibility uses the vendor-supported `SUBPROCESS_HAVE_CWD=0` override (Android only), applied by `patch-android-subprocess.py`. The router inherits its working directory. The exact patch is recorded in `docs/android-subprocess.patch`; build evidence records the upstream commit plus this local modification.
 
-Thinking requests reserve output space by setting `reasoning_budget_tokens: 256` within a total `max_tokens: 768`. The unbounded Qwen3.5 extraction experiment exhausted all 768 tokens in reasoning and produced no final content; its failure remains in `qwen35-summary-unbounded-results.json`. Direct API jobs can still queue ahead of chat jobs; the UI semaphore only serializes requests through the PC proxy.
+Thinking requests reserve output space by setting `reasoning_budget_tokens: 256` within a total `max_tokens: 768`. The unbounded Qwen3.5 extraction experiment exhausted all 768 tokens in reasoning and produced no final content; its failure remains in `qwen35-summary-unbounded-results.json`. Direct API jobs can still queue ahead of chat jobs; the UI semaphore only serializes requests through the chat proxy.

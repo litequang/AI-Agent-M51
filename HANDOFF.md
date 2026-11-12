@@ -1,5 +1,7 @@
 PUBLIC COPY: live addresses/usernames have been replaced with placeholders. Refer to the operator's private LOCAL_ACCESS.md and connection.local.json for authorized access.
 
+CURRENT ARCHITECTURE UPDATE (supersedes PC-hosted chat instructions below): Chat is now hosted entirely on M51 as runit service m51-chat, loopback 8787 -> phone AI loopback 8080. Phone Tailscale Serve8787 provides http://<REDACTED_NETWORK_ADDRESS>:8787; SSH8022 remains. PC chat, API tunnels18080/18081 and PC Serve8787 were stopped. Actual direct phone chat/model switching/security and PC listener-zero checks passed. Chat crash recovery1.11s and60s observation passed. Physical PC power-off, actual4G, reboot and endurance are still untested. See docs/phone-chat.md and phone-*.json. Cloudflare DNS ownership confirmed by user; custom domain/Tunnel/Access only discussed, not configured.
+
 # Bàn giao AI Agent M51
 
 Cập nhật ngày 12/11/2026, múi giờ Asia/Bangkok. Đọc tài liệu này trước khi thao tác.
